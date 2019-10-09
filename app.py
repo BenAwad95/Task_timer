@@ -67,10 +67,19 @@ def clock_dis(): #this function responsive about the clock and the timer.
 	period = str(hour) + ',' + str(mint) +  ',' + str(sec)
 	clock.after(1000,clock_dis)
 
-task_name = Label(app,font=('times', 20 ,'bold'))
-task_name.grid(row=3,column=1,columnspan=2)
-task_name.config(text = 'Solve the ')
+task_name = Entry(app,font=('times', 10 ,'bold'))
+task_name.grid(row=3,column=2,pady=10)
 
-clock_dis()
+label_task = Label(app,font=('times', 10 ,'bold'),text='Enter task\'s name',justify='left')
+label_task.grid(row=3,column=1,padx=10)
+
+task_time = Entry(app,font=('times', 10 ,'bold'))
+task_time.grid(row=4,column=2,pady=10)
+
+label_task_time = Label(app,font=('times', 10 ,'bold'),text='Enter task\'s period',justify='left')
+label_task_time.grid(row=4,column=1,padx=10)
+
+
+#clock_dis()
 
 app.mainloop()
