@@ -32,7 +32,7 @@ def clock_dis(): #this function responsive about the clock and the timer.
 	label_time.grid(row=6,column=1,columnspan=2)
 	clock = Label(app,font=('times', 20 ,'bold'))
 	clock.grid(row=7,column=1,padx=20,pady=10,columnspan=2)
-	label_timer = Label(app,font=('times', 15 ,'bold'),text='Timer')
+	label_timer = Label(app,font=('times', 15 ,'bold'),text='Time left:')
 	label_timer.grid(row=8,column=2)
 	timer = Label(app,font=('times', 20 ,'bold'))
 	timer.grid(row=9,column=2)
@@ -55,7 +55,7 @@ def clock_dis(): #this function responsive about the clock and the timer.
 				mint = '0' + str(mint)
 			timer.config(text = '%s:%s:%s'%(hour,mint,sec))
 	else:
-		sec = 59
+		sec = '59'
 		if mint > 0:
 			if mint <= 10:
 				mint -= 1
@@ -67,7 +67,7 @@ def clock_dis(): #this function responsive about the clock and the timer.
 		else:
 			if hour > 0:
 				hour -= 1
-				m = 59
+				mint = 59
 				sec = 59
 				timer.config(text = '%s:%s:%s'%(hour,mint,sec))
 			else:
@@ -79,7 +79,7 @@ def clock_dis(): #this function responsive about the clock and the timer.
 		period = str(hour) + ',' + str(mint) +  ',' + str(sec)
 	else:
 		period = '0,00,00'
-	clock.after(1000,clock_dis)
+	clock.after(1,clock_dis)
 
 task_time_value = StringVar()
 task_time = Entry(app,font=('times', 10 ,'bold'),textvariable=task_time_value)
