@@ -1,5 +1,5 @@
 #i went build the task timer which i can enter the name of the task
-#and how much time it take than enter start to begining
+#and how much time it takes than enter start to begining
 #the gui should has the digetal clock 
 
 
@@ -21,20 +21,24 @@ def set_time_varibal(period):
 	return hour,mint,sec
 
 def set_period_value():
-	global period
+	global period,task_name_value
 	period =  task_time_value.get()
+	task_name_value = task_name_value.get()
 	clock_dis()
 
 def clock_dis(): #this function responsive about the clock and the timer.
 	global period
 	label_time = Label(app,font=('times', 15 ,'bold'),text='The time now')
-	label_time.grid(row=5,column=1)
+	label_time.grid(row=6,column=1,columnspan=2)
 	clock = Label(app,font=('times', 20 ,'bold'))
-	clock.grid(row=6,column=1,padx=20,pady=10)
+	clock.grid(row=7,column=1,padx=20,pady=10,columnspan=2)
 	label_timer = Label(app,font=('times', 15 ,'bold'),text='Timer')
-	label_timer.grid(row=5,column=2)
+	label_timer.grid(row=8,column=2)
 	timer = Label(app,font=('times', 20 ,'bold'))
-	timer.grid(row=6,column=2)
+	timer.grid(row=9,column=2)
+
+	label_task_name = Label(app,text=task_name_value,font=('times', 15 ,'bold'),bg='red')
+	label_task_name.grid(row=8,column=1,rowspan=2)
 
 	
 	hour,mint,sec = set_time_varibal(period)
@@ -68,9 +72,13 @@ def clock_dis(): #this function responsive about the clock and the timer.
 				timer.config(text = '%s:%s:%s'%(hour,mint,sec))
 			else:
 				timer.config(text = 'Finsh')
+				period = 0
 	t_now = time.strftime('%H:%M:%S')
 	clock.config(text = t_now)
-	period = str(hour) + ',' + str(mint) +  ',' + str(sec)
+	if period != 0 :
+		period = str(hour) + ',' + str(mint) +  ',' + str(sec)
+	else:
+		period = '0,00,00'
 	clock.after(1000,clock_dis)
 
 task_time_value = StringVar()
@@ -91,8 +99,8 @@ label_task.grid(row=3,column=1)
 label_task_time = Label(app,font=('times', 10 ,'bold'),text='Enter task\'s period',justify='left')
 label_task_time.grid(row=4,column=1,padx=10)
 
-start = Button(app,text='Start',command=tobe)
-start.grid(row=5,column=1)
+start = Button(app,text='Start',command=set_period_value)
+start.grid(row=5,column=1,columnspan=2,pady=20)
 #clock_dis()
 
 app.mainloop()
