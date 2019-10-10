@@ -6,13 +6,6 @@
 from tkinter import *
 import time
 
-
-
-app = Tk()
-
-app.minsize(450,250)
-
-
 def set_time_varibal(period):
 	period = period.replace(',','')
 	hour = int(period[0])
@@ -21,24 +14,31 @@ def set_time_varibal(period):
 	return hour,mint,sec
 
 def set_period_value():
+	global task_timer_window
+	welcom_window.destroy()
+	task_timer_window = Tk()
+	task_timer_window.minsize(450,250)
+	
 	global period,task_name_value
 	period =  task_time_value.get()
 	task_name_value = task_name_value.get()
 	clock_dis()
+	task_timer_window.mainloop()
 
 def clock_dis(): #this function responsive about the clock and the timer.
 	global period
-	label_time = Label(app,font=('times', 15 ,'bold'),text='The time now')
-	label_time.grid(row=6,column=1,columnspan=2)
-	clock = Label(app,font=('times', 20 ,'bold'))
-	clock.grid(row=7,column=1,padx=20,pady=10,columnspan=2)
-	label_timer = Label(app,font=('times', 15 ,'bold'),text='Time left:')
-	label_timer.grid(row=8,column=2)
-	timer = Label(app,font=('times', 20 ,'bold'))
-	timer.grid(row=9,column=2)
+	
+	label_time = Label(task_timer_window,font=('times', 15 ,'bold'),text='The time now')
+	label_time.grid(row=1,column=1,columnspan=2,pady=10,padx=150)
+	clock = Label(task_timer_window,font=('times', 20 ,'bold'))
+	clock.grid(row=2,column=1,pady=10,columnspan=2)
+	label_timer = Label(task_timer_window,font=('times', 15 ,'bold'),text='Time left:')
+	label_timer.grid(row=3,column=2,pady=10)
+	timer = Label(task_timer_window,font=('times', 20 ,'bold'))
+	timer.grid(row=4,column=2)
 
-	label_task_name = Label(app,text=task_name_value,font=('times', 15 ,'bold'),bg='red')
-	label_task_name.grid(row=8,column=1,rowspan=2)
+	label_task_name = Label(task_timer_window,text=task_name_value,font=('times', 15 ,'bold'),bg='red')
+	label_task_name.grid(row=3,column=1,rowspan=2)
 
 	
 	hour,mint,sec = set_time_varibal(period)
@@ -79,28 +79,33 @@ def clock_dis(): #this function responsive about the clock and the timer.
 		period = str(hour) + ',' + str(mint) +  ',' + str(sec)
 	else:
 		period = '0,00,00'
-	clock.after(1,clock_dis)
+	clock.after(1000,clock_dis)
+	
+
+welcom_window = Tk()
+
+welcom_window.minsize(450,250)
+
 
 task_time_value = StringVar()
-task_time = Entry(app,font=('times', 10 ,'bold'),textvariable=task_time_value)
+task_time = Entry(welcom_window,font=('times', 10 ,'bold'),textvariable=task_time_value)
 task_time.grid(row=4,column=2,pady=10)
 
 
-greatins = Label(app,font=('times', 10 ,'bold'),text='Welcome in Task Timer app',justify='center')
+greatins = Label(welcom_window,font=('times', 10 ,'bold'),text='Welcome in Task Timer welcom_window',justify='center')
 greatins.grid(row=1,column=1,columnspan=2,pady=30,ipadx=150)
 
 task_name_value = StringVar()
-task_name = Entry(app,font=('times', 10 ,'bold'),textvariable=task_name_value)
+task_name = Entry(welcom_window,font=('times', 10 ,'bold'),textvariable=task_name_value)
 task_name.grid(row=3,column=2,pady=10)
 
-label_task = Label(app,font=('times', 10 ,'bold'),text='Enter task\'s name',justify='left')
+label_task = Label(welcom_window,font=('times', 10 ,'bold'),text='Enter task\'s name',justify='left')
 label_task.grid(row=3,column=1)
 
-label_task_time = Label(app,font=('times', 10 ,'bold'),text='Enter task\'s period',justify='left')
+label_task_time = Label(welcom_window,font=('times', 10 ,'bold'),text='Enter task\'s period',justify='left')
 label_task_time.grid(row=4,column=1,padx=10)
 
-start = Button(app,text='Start',command=set_period_value)
+start = Button(welcom_window,text='Start',command=set_period_value)
 start.grid(row=5,column=1,columnspan=2,pady=20)
-#clock_dis()
 
-app.mainloop()
+welcom_window.mainloop()
